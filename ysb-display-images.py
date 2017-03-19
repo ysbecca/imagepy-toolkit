@@ -10,28 +10,33 @@ Any image in a format readable by matplotlib.pyplot's imshow() function is good.
 import matplotlib.pyplot as plt
 
 
-def show_images(images, per_row, per_column, patches=False):
-    ''' Displays an array of images with per_row images per row, per_column images per column,
-    	and an optional predefined mode for displaying patches, which displays up to 100 patches 
-    	12x12px each.
-    '''
-    if(patches):
-        fig = plt.figure(figsize=(12, 12))
-        data = images[:100]
-    else:
-        fig = plt.figure(figsize=(25, 25))
-        data = images
+def show_images(images, per_row, per_column):
+    ''' Displays up to per_row*per_column images with per_row images per row, per_column images per column.
+	'''
+    fig = plt.figure(figsize=(25, 25))
+    data = images[:(per_row*per_column)]
 
     for i, image in enumerate(data):
-        if(patches):
-            plt.subplot(10, 10, i+1)
-        else:
-            plt.subplot(per_column, per_row, i+1)
+        plt.subplot(per_column, per_row, i+1)
         plt.imshow(image)
         plt.axis("off")
     
     plt.show()
 
+
+def show_patches(images):
+    ''' A quick way of displaying up to 100 patches of 12x12px. You can easily change the default number
+    	of patches below; remember to change the number of images per column to match.
+    '''
+    fig = plt.figure(figsize=(12, 12))
+    data = images[:100]
+
+    for i, image in enumerate(data):
+		plt.subplot(10, 10, i+1)
+        plt.imshow(image)
+        plt.axis("off")
+
+    plt.show()
 
 def show_image(image):
 	''' Display one single image without axis markings. '''
